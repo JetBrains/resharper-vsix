@@ -1,0 +1,8 @@
+﻿# VS2012 Update 3 + VS2013 require at least 0.4.1 of the editorconfig VS extension
+# Sadly, this isn't on the tool gallery yet...
+# https://github.com/editorconfig/editorconfig/issues/116
+root=true
+
+[*.cs]
+indent_style=space
+indent_size=2
