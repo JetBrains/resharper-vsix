@@ -18,10 +18,10 @@ namespace JetBrains.ReSharper.Plugins.Vsix2ReSharper.Implementation
       extensions = new CollectionEvents<IExtension>(lifetime, "VsixExtensionProvider");
     }
 
-    public bool Load(string path)
+    public bool LoadExtension(string folderPath)
     {
       // TODO: Logging
-      var location = FileSystemPath.Parse(path);
+      var location = FileSystemPath.Parse(folderPath);
       if (!location.ExistsDirectory)
         return false;
 

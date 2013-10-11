@@ -125,15 +125,14 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CommonReSharperIntegration.cs">
-      <Link>CommonReSharperIntegration.cs</Link>
+    <Compile Include="..\CommonReSharperApiImplementation.cs">
+      <Link>CommonReSharperApiImplementation.cs</Link>
     </Compile>
     <Compile Include="AssemblyResolver.cs" />
-    <Compile Include="ReSharperExtensionLoader.cs" />
-    <Compile Include="Guids.cs" />
-    <Compile Include="IntegrationLoader.cs" />
-    <Compile Include="ReSharperExtensionLoader.Interfaces.cs" />
+    <Compile Include="ReSharperIntegrationBootstrap.cs" />
     <Compile Include="ReSharperIntegration.cs" />
+    <Compile Include="Integration.Interfaces.cs" />
+    <Compile Include="Guids.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

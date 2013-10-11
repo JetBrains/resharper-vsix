@@ -4,6 +4,7 @@ using JetBrains.ReSharper.Plugins.Vsix2ReSharper.Implementation;
 using JetBrains.Threading;
 using JetBrains.VsIntegration.Application;
 using JetBrains.Vsix.ReSharperIntegration;
+
 using IVsOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
 // ReSharper disable once CheckNamespace
@@ -11,11 +12,10 @@ public class Bootstrap
 {
   private static LifetimeDefinition lifetimeDefinition;
 
-  public static IReSharperIntegration Initialise(IVsOleServiceProvider vsServiceProvider)
+  public static void Initialise(IVsOleServiceProvider vsServiceProvider, ReSharperApiImplementationCallback callback)
   {
-    var integration = new Integration();
-
-    // TODO: Do I really need this? dotCover uses it...
+    // TODO: Is the guard strictly necessary?
+    // dotCover uses it, but we always seem to get executed immediately
     ReentrancyGuard.Current.ExecuteOrQueue("Register VSIX extension provider",
       () =>
       {
@@ -26,10 +26,8 @@ public class Bootstrap
 
         var extensionProvider = jetEnvironment.Container.GetComponent<VsixExtensionProvider>();
 
-        integration.SetExtensionProvider(extensionProvider);
+        callback(new ReSharperApiImplementation(extensionProvider));
       });
-
-    return integration;
   }
 
   public static void Dispose()
@@ -41,18 +39,18 @@ public class Bootstrap
     });
   }
 
-  private class Integration : IReSharperIntegration
+  private class ReSharperApiImplementation : IReSharperApiImplementation
   {
-    private VsixExtensionProvider extensionProvider;
+    private readonly VsixExtensionProvider extensionProvider;
+
+    public ReSharperApiImplementation(VsixExtensionProvider vsixExtensionProvider)
+    {
+      extensionProvider = vsixExtensionProvider;
+    }
 
     public bool LoadExtension(string path)
     {
-      return extensionProvider != null && extensionProvider.Load(path);
-    }
-
-    internal void SetExtensionProvider(VsixExtensionProvider provider)
-    {
-      extensionProvider = provider;
+      return extensionProvider != null && extensionProvider.LoadExtension(path);
     }
   }
 }

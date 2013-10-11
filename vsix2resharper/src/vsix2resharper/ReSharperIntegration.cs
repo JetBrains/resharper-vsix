@@ -1,25 +1,22 @@
-﻿using JetBrains.Vsix.ReSharperIntegration;
+﻿using System;
+using JetBrains.Vsix.ReSharperIntegration;
 
 namespace JetBrains.ReSharper.Plugins.Vsix2ReSharper
 {
-  internal class ReSharperIntegration
+  internal class ReSharperIntegration : IReSharperIntegration
   {
-    private readonly IReSharperIntegration implementation;
-    internal static ReSharperIntegration Instance { get; private set; }
+    private readonly IReSharperApiImplementation implementation;
 
-    internal static void Initialise(IReSharperIntegration implementation)
+    public ReSharperIntegration(Version version, IReSharperApiImplementation implementation)
     {
-      Instance = new ReSharperIntegration(implementation);
-    }
-
-    private ReSharperIntegration(IReSharperIntegration implementation)
-    {
+      ReSharperVersion = version;
       this.implementation = implementation;
     }
 
-    public bool LoadExtension(string path)
+    public Version ReSharperVersion { get; private set; }
+    public bool LoadExtension(string folderPath)
     {
-      return implementation != null && implementation.LoadExtension(path);
+      return implementation.LoadExtension(folderPath);
     }
   }
 }

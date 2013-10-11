@@ -45,8 +45,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CommonReSharperIntegration.cs">
-      <Link>CommonReSharperIntegration.cs</Link>
+    <Compile Include="..\CommonReSharperApiImplementation.cs">
+      <Link>CommonReSharperApiImplementation.cs</Link>
     </Compile>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="NuSpec.cs" />

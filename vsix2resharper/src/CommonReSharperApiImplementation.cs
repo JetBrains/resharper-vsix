@@ -8,8 +8,12 @@ namespace JetBrains.Vsix.ReSharperIntegration
 {
   [Guid("61E571A7-E437-4096-880D-EF15C17568A3")]
   [ComImport]
-  public interface IReSharperIntegration
+  [TypeIdentifier("vsix2resharper_api", "implementation")]
+  public interface IReSharperApiImplementation
   {
     bool LoadExtension(string path);
   }
+
+  [TypeIdentifier("vsix2resharper_api", "callback")]
+  public delegate void ReSharperApiImplementationCallback(IReSharperApiImplementation implementation);
 }
